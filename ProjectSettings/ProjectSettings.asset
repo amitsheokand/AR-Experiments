@@ -162,7 +162,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: edu.ncuindia.ar.android
     Standalone: com.Unity-Technologies.com.unity.template.urp-blank
-    iPhone: com.Unity-Technologies.com.unity.template.urp-blank
+    iPhone: edu.ncuindia.ar.test
   buildNumber:
     Bratwurst: 0
     Standalone: 0
