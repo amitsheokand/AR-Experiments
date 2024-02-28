@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1;">
+        <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; height: 100px; background-color: rgb(255, 255, 255); justify-content: center; padding-top: 15px; padding-right: 30px; padding-bottom: 10px; padding-left: 30px;">
+            <ui:EnumField label="Select Type" type="NCU.SpawnObjectType, Assembly-CSharp" />
+        </ui:VisualElement>
+        <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; height: 100%;" />
+    </ui:VisualElement>
+</ui:UXML>

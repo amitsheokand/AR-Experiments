@@ -1,22 +1,47 @@
+using System;
 using System.Collections.Generic;
+using NCU;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
+[RequireComponent(typeof(ARAnchorManager))]
 [RequireComponent(typeof(ARRaycastManager))]
 public class SpawnManager : MonoBehaviour
 {
+    public SpawnObjectType spawnObjectType;
     public GameObject objectToSpawn;
+    public UIDocument mainDoc;
 
+    public VisualElement rootElement;
+    private EnumField _dropdownField;
+    
+    private List<ARAnchor> spawnedAnchors;
     private GameObject createdObject;
     
     private ARRaycastManager _arRaycastManager;
+    private ARAnchorManager _arAnchorManager;
 
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
     private void Awake()
     {
         _arRaycastManager = GetComponent<ARRaycastManager>();
+        _arAnchorManager = GetComponent<ARAnchorManager>();
+        spawnedAnchors = new List<ARAnchor>();
+
+        if (mainDoc)
+        {
+            rootElement = mainDoc.rootVisualElement;
+            _dropdownField = rootElement.Q<EnumField>();
+            _dropdownField.RegisterValueChangedCallback(OnObjectTypeChanged);
+        }
+    }
+
+    private void OnObjectTypeChanged(ChangeEvent<Enum> evt)
+    {
+        spawnObjectType = (SpawnObjectType)evt.newValue;
     }
 
 
@@ -32,19 +57,52 @@ public class SpawnManager : MonoBehaviour
             if (_arRaycastManager.Raycast(touchPosition, hits,TrackableType.PlaneWithinPolygon ))
             {
                 // if true
-                // var arPlane = (ARPlane) hits[0].trackable
+                var arPlane = (ARPlane)hits[0].trackable;
                 
-                Pose hitPose = hits[0].pose;
-
-                if (createdObject == null)
+                if (arPlane.normal == Vector3.up)
                 {
-                    createdObject = Instantiate(objectToSpawn, hitPose.position, hitPose.rotation);
+                    Debug.Log("Horizontal Plane");
                 }
                 else
                 {
-                    createdObject.transform.position = hitPose.position;
+                    Debug.Log("Vertical Plane");
+                }
+                
+                Pose hitPose = hits[0].pose;
+
+                switch (spawnObjectType)
+                {
+                    case SpawnObjectType.Object:
+                    {
+                        if (createdObject == null)
+                        {
+                            createdObject = Instantiate(objectToSpawn, hitPose.position, hitPose.rotation);
+                        }
+                        else
+                        {
+                            createdObject.transform.position = hitPose.position;
+                        }
+                    }
+                        break;
+
+                    case SpawnObjectType.Anchor:
+                    {
+                        // Create an instance of the prefab
+                        var instance = Instantiate(_arAnchorManager.anchorPrefab, hitPose.position, hitPose.rotation);
+
+                        // Add an ARAnchor component if it doesn't have one already.
+                        if (instance.GetComponent<ARAnchor>() == null)
+                        {
+                            instance.AddComponent<ARAnchor>();
+                        }
+                        
+                        spawnedAnchors.Add(instance.GetComponent<ARAnchor>());
+                    }
+                        break;
+                    
                 }
             }
         }
     }
+
 }
