@@ -2407,6 +2407,7 @@ MonoBehaviour:
   spawnObjectType: 0
   objectToSpawn: {fileID: 5690658050353677852, guid: 907dee88370ce410ba7fb57775eb5324,
     type: 3}
+  mainDoc: {fileID: 1278127386}
 --- !u!114 &1659859604
 MonoBehaviour:
   m_ObjectHideFlags: 0
