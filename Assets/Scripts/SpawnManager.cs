@@ -8,6 +8,7 @@ using UnityEngine.XR.ARSubsystems;
 
 [RequireComponent(typeof(ARAnchorManager))]
 [RequireComponent(typeof(ARRaycastManager))]
+[RequireComponent(typeof(TouchControls))]
 public class SpawnManager : MonoBehaviour
 {
     public SpawnObjectType spawnObjectType;
@@ -22,6 +23,7 @@ public class SpawnManager : MonoBehaviour
     
     private ARRaycastManager _arRaycastManager;
     private ARAnchorManager _arAnchorManager;
+    private TouchControls _touchControls;
 
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
@@ -30,6 +32,7 @@ public class SpawnManager : MonoBehaviour
         _arRaycastManager = GetComponent<ARRaycastManager>();
         _arAnchorManager = GetComponent<ARAnchorManager>();
         spawnedAnchors = new List<ARAnchor>();
+        _touchControls = GetComponent<TouchControls>();
 
         if (mainDoc)
         {
@@ -77,10 +80,26 @@ public class SpawnManager : MonoBehaviour
                         if (createdObject == null)
                         {
                             createdObject = Instantiate(objectToSpawn, hitPose.position, hitPose.rotation);
+
+                            _touchControls.obJectToRotate = createdObject;
+                            _touchControls.isArMode = true;
+                            
+                            var objectBounds = createdObject.GetObjectBounds();
+
+                            createdObject.transform.position = new Vector3(hitPose.position.x,
+                                hitPose.position.y + objectBounds.size.y, hitPose.position.z);
                         }
                         else
                         {
-                            createdObject.transform.position = hitPose.position;
+                            // createdObject.transform.position = hitPose.position;
+                            
+                            // set y position 
+                            // keep position on top of plane
+                            var objectBounds = createdObject.GetObjectBounds();
+
+                            createdObject.transform.position = new Vector3(hitPose.position.x,
+                                hitPose.position.y + objectBounds.size.y, hitPose.position.z);
+
                         }
                     }
                         break;
