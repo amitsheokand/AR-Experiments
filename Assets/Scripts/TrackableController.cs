@@ -14,6 +14,8 @@ using UnityEngine.XR.ARSubsystems;
 [RequireComponent(typeof(ARParticipantManager))]
 public class TrackableController : MonoBehaviour
 {
+    public UiManager _UiManager;
+    
     private ARPlaneManager _arPlaneManager;
     private ARPointCloudManager _pointCloudManager;
     private ARAnchorManager _arAnchorManager;
@@ -152,8 +154,16 @@ public class TrackableController : MonoBehaviour
         
     }
     
-    private void ArFaceManagerOnfacesChanged(ARFacesChangedEventArgs obj)
+    private void ArFaceManagerOnfacesChanged(ARFacesChangedEventArgs args)
     {
+        if (args.added.Count > 0)
+        {
+            Debug.Log("Face detected !");
+            
+            // hide lock screen
+            _UiManager.HideLockScreen();
+        }
+        
     }
     
     private void TrackedObjectManagerOntrackedObjectsChanged(ARTrackedObjectsChangedEventArgs obj)

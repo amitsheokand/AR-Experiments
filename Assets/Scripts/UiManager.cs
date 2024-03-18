@@ -11,6 +11,10 @@ public class UiManager : MonoBehaviour
     public UIDocument mainDoc;
     public VisualElement rootElement;
 
+    private VisualElement lockScreenPanel;
+    private VisualElement debugMenuPanel;
+    private VisualElement otherPanel;
+
     private Toggle _usePlaneButton;
     private Toggle _usePointCloudButton;
     private Toggle _useAnchorButton;
@@ -31,6 +35,17 @@ public class UiManager : MonoBehaviour
         if (mainDoc)
         {
             rootElement = mainDoc.rootVisualElement;
+            
+            lockScreenPanel = rootElement.Q<VisualElement>("LockScreen");
+            debugMenuPanel = rootElement.Q<VisualElement>("DebugPanel");
+            otherPanel = rootElement.Q<VisualElement>("OtherPanel");
+
+            // enable lock screen
+            lockScreenPanel.style.display = DisplayStyle.Flex;
+            
+            // hide other panels
+            debugMenuPanel.style.display = DisplayStyle.None;
+            otherPanel.style.display = DisplayStyle.None;
 
             _usePlaneButton = rootElement.Q<Toggle>("usePlaneButton");
             _usePointCloudButton = rootElement.Q<Toggle>("usePointCloudButton");
@@ -48,6 +63,16 @@ public class UiManager : MonoBehaviour
             _useFaceButton.RegisterValueChangedCallback(OnAARFaceManagerChanged);
             _useTrackedObjectButton.RegisterValueChangedCallback(OnARTrackedObjectManagerChanged);
             _useParticipantButton.RegisterValueChangedCallback(OnARParticipantManagerChanged);
+            
+            // apply changes in UI
+
+            _usePlaneButton.value = trackableController.usePlaneManager;
+            _usePointCloudButton.value = trackableController.usePointCloudManager;
+            _useAnchorButton.value = trackableController.useAnchorManager;
+            _useTrackableImageButton.value = trackableController.useTrackedImageManager;
+            _useFaceButton.value = trackableController.useFaceManager;
+            _useTrackedObjectButton.value = trackableController.useTrackedObjectManager;
+            _useParticipantButton.value = trackableController.useParticipantManager;
         }
     }
 
@@ -103,6 +128,12 @@ public class UiManager : MonoBehaviour
         Debug.Log("New session state is " + newState);
         appManager.ToggleSession(newState);
     }
-    
-   
+
+
+    public void HideLockScreen()
+    {
+        lockScreenPanel.style.display = DisplayStyle.None;
+        debugMenuPanel.style.display = DisplayStyle.Flex;
+        otherPanel.style.display = DisplayStyle.Flex;
+    }
 }
