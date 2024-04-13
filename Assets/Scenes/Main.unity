@@ -484,7 +484,7 @@ MonoBehaviour:
   m_LightEstimationMode: -1
   m_AutoFocus: 1
   m_LightEstimation: -1
-  m_FacingDirection: 2
+  m_FacingDirection: 1
   m_RenderMode: 2
 --- !u!114 &1354141929
 MonoBehaviour:
@@ -540,6 +540,7 @@ GameObject:
   - component: {fileID: 1659859610}
   - component: {fileID: 1659859609}
   - component: {fileID: 1659859608}
+  - component: {fileID: 1659859612}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -587,7 +588,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659859597}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1760703bbd54c04488a8d10600262ab, type: 3}
   m_Name: 
@@ -622,7 +623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnObjectType: 0
-  objectToSpawn: {fileID: 5690658050353677852, guid: 907dee88370ce410ba7fb57775eb5324,
+  objectToSpawn: {fileID: 5690658050353677852, guid: 5e243b0f88926449ca570fa9d08f286b,
     type: 3}
   mainDoc: {fileID: 1278127386}
 --- !u!114 &1659859604
@@ -697,11 +698,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _UiManager: {fileID: 1278127388}
-  usePlaneManager: 0
+  usePlaneManager: 1
   usePointCloudManager: 0
   useAnchorManager: 0
   useTrackedImageManager: 0
-  useFaceManager: 1
+  useFaceManager: 0
   useTrackedObjectManager: 0
   useParticipantManager: 0
 --- !u!114 &1659859609
@@ -738,7 +739,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659859597}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: caeceacb624484daf8e379c2252fd246, type: 3}
   m_Name: 
@@ -746,6 +747,22 @@ MonoBehaviour:
   m_FacePrefab: {fileID: 5591404113248597492, guid: 1d6bdc395d8074e7296e3ed53f5c1d4a,
     type: 3}
   m_MaximumFaceCount: 1
+--- !u!114 &1659859612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659859597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73a025b51106444e18fb408fde19ac53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AutomaticPlacement: 1
+  m_EnvironmentTextureFilterMode: 2
+  m_EnvironmentTextureHDR: 1
+  m_DebugPrefab: {fileID: 0}
 --- !u!1 &2023614391
 GameObject:
   m_ObjectHideFlags: 0

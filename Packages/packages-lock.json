@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.bshsf.joystick": {
+      "version": "https://github.com/Bian-Sh/UniJoystick.git?path=Packages/Joystick",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "e53d32514d78bfc4c766efff576e1e09bb6d3644"
+    },
     "com.unity.burst": {
       "version": "1.8.11",
       "depth": 1,
@@ -116,6 +123,15 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.postprocessing": {
+      "version": "3.4.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.physics": "1.0.0"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.settings-manager": {
